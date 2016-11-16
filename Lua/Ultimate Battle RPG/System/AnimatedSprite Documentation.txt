@@ -1,0 +1,257 @@
+=============================================================================================================================================
+**Info**
+=============================================================================================================================================
+The goal of this class\library is to provide an object with animated picture along the time with a sequence of pictures.
+The image is composed of ordered picture for the left to the right, and from the top to bottom. All pictures have the same size.
+
+Created by: alatnet
+Dev Team X Productions
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+=============================================================================================================================================
+**Constructor Summary**
+=============================================================================================================================================
+AnimatedSprite.new(String img,Number Num_Sprites_Vertical,Number Num_Sprites_Horizontal,Number freq)
+  Creates a sprite with an animation image.
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+=============================================================================================================================================
+**Method Summary**
+=============================================================================================================================================
+             Number | AnimatedSprite:getFreq()
+                    |   Returns the number of milliseconds to wait between two pictures of the animation.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setFreq(Number freq)
+                    |   Sets the number of milliseconds to wait between two pictures of the animation.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setPause(Bool val)
+                    |   Sets pause state for this animated sprite.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+               Bool | AnimatedSprite:isPause()
+                    |   Gets pause state for this animated sprite.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+             Number | AnimatedSprite:getWidth()
+                    |   Gets width of the sprite (not the image used to create the sprite).
+--------------------+------------------------------------------------------------------------------------------------------------------------
+             Number | AnimatedSprite:getHeight()
+                    |   Gets height of the sprite (not the image used to create the sprite).
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:Draw(x,y,s)
+                    |   Draw's the sprite.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite.addImage2List(img,name)
+                    |   Add's an image to the Animated Sprite Class\Library's preloaded images list.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite.purgeList()
+                    |   Purges the Animated Sprite Class\Library's preloaded images list.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:shiftFrame(val)
+                    |   Shift's the sprite's frame by 'val' number of times.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+              Image | AnimatedSprite:getImage()
+                    |   Return's the sprite sheet used for the sprite's animation.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setImage(img,Num_Sprites_Vertical,Num_Sprites_Horizontal,freq)
+                    |   Set's the sprite's sprite sheet to the one supplied.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+              Image | AnimatedSprite:getSpriteFromPos(x,y)
+                    |   Returns the individual sprite from the sprite sheet at position (x,y).
+--------------------+------------------------------------------------------------------------------------------------------------------------
+              Image | AnimatedSprite:getSpriteFromFrame(val)
+                    |   Returns the individual sprite from the sprite sheet at frame 'val'.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setReverse(val)
+                    |   Set's the animation to play backward's.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+               Bool | AnimatedSprite:isReverse()
+                    |   Returns if the animation is playing backwards.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+             Number | AnimatedSprite:getCurrFrame()
+                    |   Returns the current frame being displayed.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setCurrFrame(val)
+                    |   Set's the current frame.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+Bool,Bool,Bool,Bool | AnimatedSprite:checkCollision(x,y,Obj_x,Obj_y,Obj_w,Obj_h)
+                    |   Checks to see if their is a collision at position (x,y) with the given object's (Obj_x,Obj_y) position and size (Obj_w,Obj_h)
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite.RemoveImg(img)
+                    |   Removes an image from the loaded list.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite.RemoveReloc(name)
+                    |   Removes a relocation path to an image from the relocation list.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setTransparency(val)
+                    |   Set's the animated sprite to use transparency via the alpha value of the provided image.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+               Bool | AnimatedSprite:isTransparent()
+                    |   Returns if the sprite is being drawn with transparency.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setTransparencyColor(col)
+                    |   If transparency is disabled, the color provided is use to replace the alpha values of the sprite.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+              Color | AnimatedSprite:getTransparencyColor()
+                    |   Returns the color used to replace the alpha value of the sprite.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+
+
+=============================================================================================================================================
+**Constructor Detail**
+=============================================================================================================================================
+AnimatedSprite.new(String img,Number Num_Sprites_Vertical,Number Num_Sprites_Horizontal,Number freq)
+  Creates a sprite with an animation image.
+  Note: The image is composed of ordered picture for the left to the right, and from the top to bottom. All pictures have the same size.
+  Parameters:
+    img - the path to the image to be used as an animated sprite.
+    Num_Sprites_Vertical - Number of sprites from top to bottom in the image (defaults to 1).
+    Num_Sprites_Horizontal - Number of sprites from left to right in the image (defaults to 1).
+    freq - Number of milliseconds to wait between two pictures of the animation, or -1 if the picture doesn't change (defaults to 1000).
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+=============================================================================================================================================
+**Method Detail**
+=============================================================================================================================================
+             Number | AnimatedSprite:getFreq()
+                    |   Returns the number of milliseconds to wait between two pictures of the animation.
+                    |   Returns:
+                    |     The number of milliseconds to wait between two pictures of the animation, or -1 if the picture doesn't change
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setFreq(Number freq)
+                    |   Sets the number of milliseconds to wait between two pictures of the animation.
+                    |   Parameters:
+                    |     freq - The number of milliseconds to wait between two pictures of the animation, or -1 if the picture doesn't change (defaults to 1000).
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setPause(Bool val)
+                    |   Sets pause state for this animated sprite.
+                    |   Parameters:
+                    |     val - true to set the animated sprite in pause state, false otherwise (defaults to true).
+--------------------+------------------------------------------------------------------------------------------------------------------------
+               Bool | AnimatedSprite:isPause()
+                    |   Gets pause state for this animated sprite.
+                    |   Returns:
+                    |     true to set the animated sprite in pause state, false otherwise.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+             Number | AnimatedSprite:getWidth()
+                    |   Gets width of the sprite (not the image used to create the sprite).
+                    |   Returns:
+                    |     The width of the sprite.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+             Number | AnimatedSprite:getHeight()
+                    |   Gets height of the sprite (not the image used to create the sprite).
+                    |   Returns:
+                    |     The height of the sprite.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:Draw(x,y,s)
+                    |   Draw's the sprite.
+                    |   Parameters:
+                    |     x - X Position to draw the sprite (defaults to 0).
+                    |     y - Y Position to draw the sprite (defaults to 0).
+                    |     s - Where to draw the sprite (defaults to the screen).
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite.addImage2List(img,name)
+                    |   Add's an image to the Animated Sprite Class\Library's preloaded images list.
+                    |   Parameters:
+                    |     img - Path to the image to add to the Animated Sprite Class\Library's preloaded images list.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite.purgeList()
+                    |   Purges the Animated Sprite Class\Library's preloaded images list.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:shiftFrame(val)
+                    |   Shift's the sprite's frame by 'val' number of times.
+                    |   Parameters:
+                    |     val - A number that is positive or negative.  (Negative values are buggy at the moment.)
+--------------------+------------------------------------------------------------------------------------------------------------------------
+              Image | AnimatedSprite:getImage()
+                    |   Return's the sprite sheet used for the sprite's animation.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setImage(img,Num_Sprites_Vertical,Num_Sprites_Horizontal,freq)
+                    |   Set's the sprite's sprite sheet to the one supplied.
+                    |   Parameters:
+                    |     img - Image to use. (A string.  Function checks in the Animated Sprite Class\Library's preloaded images list to see if it is there, if not then it loads the image and add's it to the Animated Sprite Class\Library's preloaded images list.)
+                    |     Num_Sprites_Vertical - Number of sprites from top to bottom in the image (defaults to 1).
+                    |     Num_Sprites_Horizontal - Number of sprites from left to right in the image (defaults to 1).
+                    |     freq - Number of milliseconds to wait between two pictures of the animation, or -1 if the picture doesn't change (defaults to 1000).
+--------------------+------------------------------------------------------------------------------------------------------------------------
+              Image | AnimatedSprite:getSpriteFromPos(x,y)
+                    |   Returns the individual sprite from the sprite sheet at position (x,y).
+                    |   Parameters:
+                    |     x - The x position of the sprite (NOT IN PIXELS! Think of it as an array!)
+                    |     y - The y position of the sprite (NOT IN PIXELS! Think of it as an array!)
+--------------------+------------------------------------------------------------------------------------------------------------------------
+              Image | AnimatedSprite:getSpriteFromFrame(val)
+                    |   Returns the individual sprite from the sprite sheet at frame 'val'.
+                    |   Parameters:
+                    |     val - The frame of the sprite.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setReverse(val)
+                    |   Set's the animation to play backward's. (Buggy, does not work correctly yet.)
+                    |   Parameters:
+                    |     val - Boolean value.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+               Bool | AnimatedSprite:isReverse()
+                    |   Returns if the animation is playing backwards. (Buggy, does not work correctly yet.)
+--------------------+------------------------------------------------------------------------------------------------------------------------
+             Number | AnimatedSprite:getCurrFrame()
+                    |   Returns the current frame being displayed.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setCurrFrame(val)
+                    |   Set's the current frame.
+                    |   Parameters:
+                    |     val - The frame to set it to.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+Bool,Bool,Bool,Bool | AnimatedSprite:checkCollision(x,y,Obj_x,Obj_y,Obj_w,Obj_h)
+                    |   Checks to see if their is a collision at position (x,y) with the given object's (Obj_x,Obj_y) position and size (Obj_w,Obj_h)
+                    |   Returns:
+                    |     Bool #1 - Top Collision
+                    |     Bool #2 - Bottom Collision
+                    |     Bool #3 - Left Collision
+                    |     Bool #4 - Right Collision
+                    |   Parameters:
+                    |     x - the sprite's x position.
+                    |     y - the sprite's y position.
+                    |     Obj_x - the object's x position.
+                    |     Obj_y - the object's y position.
+                    |     Obj_w - the object's width.
+                    |     Obj_h - the object's height.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite.RemoveImg(img)
+                    |   Removes an image from the loaded list.
+                    |   Parameters:
+                    |     img - The image to remove.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite.RemoveReloc(name)
+                    |   Removes a relocation path to an image from the relocation list.
+                    |   Parameters:
+                    |     name - The relocation path to remove.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setTransparency(val)
+                    |   Set's the animated sprite to use transparency via the alpha value of the provided image.
+                    |   Parameters:
+                    |     val - A boolean value.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+               Bool | AnimatedSprite:isTransparent()
+                    |   Returns if the sprite is being drawn with transparency.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+                nil | AnimatedSprite:setTransparencyColor(col)
+                    |   If transparency is disabled, the color provided is use to replace the alpha values of the sprite.
+                    |     col - A color to be used as the replacement for the alpha value in the sprite.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+              Color | AnimatedSprite:getTransparencyColor()
+                    |   Returns the color used to replace the alpha value of the sprite.
+--------------------+------------------------------------------------------------------------------------------------------------------------
+
+=============================================================================================================================================
+**Example**
+=============================================================================================================================================
+dofile ("AnimatedSprite.lc")
+function EXAMPLE()
+  local sprite = AnimatedSprite.new("example.png",4,3,1500)
+
+  while true do
+    screen:clear(Color.new(0,0,0))
+    sprite:Draw(screen:width()/2 - sprite:getWidth()/2,screen:height()/2 - sprite:getHeight()/2)
+    screen:flip()
+  end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------

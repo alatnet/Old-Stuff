@@ -1,0 +1,111 @@
+CameraSystem = {}
+
+function CameraSystem.new()
+  local c = setmetatable(
+    {
+      cams = {}
+    },
+    {
+      __index = CameraSystem
+    }
+  )
+  
+  return c
+end
+
+function CameraSystem:addCamera(name)
+  name = name or ""
+  if self.cams == nil then
+    self.cams = {}
+  end
+  table.insert(self.cams,{NAME = name,pos = {x = 0.0,y = 0.0,z = 0.0},target = {x = 0.0,y = 0.0,z = 0.0},tilt = {x = 0.0,y = 1.0,z = 0.0}})
+  return table.getn(self.cams)
+end
+
+function CameraSystem:removeCamera(cid)
+  cid = cid or table.getn(self.cams)
+  if table.getn(self.cams) == 0 then
+    return -1
+  end
+  if cid >= 1 or cid <= table.getn(self.cams) then
+    table.remove(self.cams, cid)
+  else
+    return -1
+  end
+end
+
+function CameraSystem:moveCamera(cid,xpos,ypos,zpos)
+  if cid >= 1 or cid <= table.getn(self.cams) then
+    self.cams[cid].pos.x = xpos
+    self.cams[cid].pos.y = ypos
+    self.cams[cid].pos.z = zpos
+  else
+    return -1
+  end
+end
+
+function CameraSystem:moveTarget(cid,xpos,ypos,zpos)
+  if cid >= 1 or cid <= table.getn(self.cams) then
+    self.cams[cid].target.x = xpos
+    self.cams[cid].target.y = ypos
+    self.cams[cid].target.z = zpos
+  else
+    return -1
+  end
+end
+
+function CameraSystem:changeTilt(cid,xtilt,ytilt,ztilt)
+  if cid >= 1 or cid <= table.getn(self.cams) then
+    self.cams[cid].tilt.x = xtilt
+    self.cams[cid].tilt.y = ytilt
+    self.cams[cid].tilt.z = ztilt
+  else
+    return -1
+  end
+end
+
+function CameraSystem:cameraDetails(cid)
+  if cid >= 1 or cid <= table.getn(self.cams) then
+    return self.cams[cid]
+  else
+    return -1
+  end
+end
+
+function CameraSystem:setName(cid,name)
+  name = name or ""
+  if cid >= 1 or cid <= table.getn(self.cams) then
+    self.cams[cid].NAME = name
+  else
+    return -1
+  end
+end
+
+function CameraSystem:CtoN(cid)
+  if cid >= 1 or cid <= table.getn(self.cams) then
+    return self.cams[cid].NAME
+  else
+    return -1
+  end
+end
+
+function CameraSystem:NtoC(name)
+  name = name or ""
+  
+  if name ~= "" then
+    for i=1,table.getn(self.cams) do
+      if self.cams[cid].NAME == name then
+        return i
+      end
+    end
+    return -1
+  end
+end
+
+function CameraSystem:useCamera(cid)
+  if cid >= 1 or cid <= table.getn(self.cams) then
+    Gum.lookAt(self.cams[cid].pos.x,self.cams[cid].pos.y,self.cams[cid].pos.z,self.cams[cid].target.x,self.cams[cid].target.y,self.cams[cid].target.z,self.cams[cid].tilt.x,self.cams[cid].tilt.y,self.cams[cid].tilt.z)
+  else
+    return -1
+  end
+end

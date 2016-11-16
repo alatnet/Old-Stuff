@@ -1,0 +1,27 @@
+if ny > 0 and ((nx > 0 and nx < 0.2) or (nx < 0 and nx > -0.2)) then
+  walkable = true
+end
+
+textureU, textureV, color, normalX, normalY, normalZ, vertexX, vertexY, vertexZ
+
+table_size = table.getn(model[1])
+
+if table_size == 3 then
+  -- model[1][1] = x
+  -- model[1][2] = y
+  -- model[1][3] = z
+elseif table_size == 5 then
+  -- model[1][1] = u
+  -- model[1][2] = v
+  -- model[1][3] = x
+  -- model[1][4] = y
+  -- model[1][5] = z
+elseif table_size == 6 then
+  if type(model[1][1]) == "number" and type(model[1][2]) == "number" and type(model[1][3]) == "userdata" then
+    -- has uvc
+  elseif type(model[1][1]) == "number" and type(model[1][2]) == "number" and type(model[1][3]) == "number" then
+    has norms and verts
+  end
+elseif table_size == 9 then
+  -- has uvc, norms and verts
+end

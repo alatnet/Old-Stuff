@@ -1,0 +1,17 @@
+System/colors.lua = boolean
+System/Loading GUI.lc = boolean
+System/FPSCounter.lua = boolean
+System/TrigArea.lua = boolean
+System/AnimatedSprite.lc = boolean
+System/MsgBox.lc = boolean
+System/MENU.LC = boolean
+System/WlanLogin.lua = boolean
+System/WlanConfigsMenu.lua = boolean
+System/Petals.lua = boolean
+System/Ctrl.lc = boolean
+System/pad.lc = boolean
+System/Mouse.lua = boolean
+System/BAR.lc = boolean
+System/TextField.lc = boolean
+System/ThreadMan.lua = boolean
+System/PAD.lc = boolean

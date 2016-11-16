@@ -1,0 +1,65 @@
+requireC (Global.system.dir.main .. "MENU.lua")
+
+SCROLLMENU = {
+  default = {
+    col = {
+      title = {
+        BG = Color.new(192,192,192),
+        FG = Color.new(0,0,0)
+      },
+      body = {
+        BG = Color.new(128,128,128),
+        FG = Color.new(0,0,0),
+        SEL = Color.new(0,0,128)
+      }
+    },
+    title = "Untitled",
+    cursor = ">"
+  }
+}
+
+function SCROLLMENU.new(options_array,title_txt,cursor_txt,numList,shadow,BG1,FG1,BG2,FG2,selcol)
+  if shadow == nil then
+    shadow = true
+  elseif shadow == false then
+    shadow = false
+  else
+    shadow = true
+  end
+
+  BG1 = BG1 or SCROLLMENU.default.col.title.BG
+  FG1 = FG1 or SCROLLMENU.default.col.title.FG
+  BG2 = BG2 or SCROLLMENU.default.col.body.BG
+  FG2 = FG2 or SCROLLMENU.default.col.body.FG
+  selcol = selcol or SCROLLMENU.default.col.body.SEL
+  title_txt = title_txt or SCROLLMENU.default.title
+  cursor_txt = cursor_txt or SCROLLMENU.default.cursor
+  
+  local c = setmetatable(
+    {
+      menu = MENU.new(list,title_txt,cursor_txt,shadow,BG1,FG1,BG2,FG2,selcol),
+      options = options_array,
+      numList = numList
+    },
+    {
+      __index = SCROLLMENU
+    }
+  )
+  
+  return c
+end
+
+function SCROLLMENU:width()
+  return self.menu:width()
+end
+
+function SCROLLMENU:height()
+  return self.menu:height()
+end
+
+function SCROLLMENU:numOptions()
+  return table.getn(self.options)
+end
+
+function SCROLLMENU:Draw(x,y,c,s)
+end

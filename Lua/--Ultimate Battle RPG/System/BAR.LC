@@ -1,0 +1,153 @@
+--[[
+BAR Class\Library  Ver. 2.0
+Created By: alatnet
+Dev Team X Productions
+]]--
+
+requireC (Global.system.dir.main .."advancedDrawFuncs.lua")
+
+BAR = {
+  fnfp = function (maxNum, perc) return (perc * maxNum)/100 end,
+  fpfn = function (maxNum, num) return (num * 100)/maxNum end
+}
+
+--[[ CONSTRUCTOR ]]--
+function BAR.new(val,max_val,slide_mode,vis_mode,width,height,col)
+  val = val or 0
+  mav_val = max_val or 100
+
+  slide_mode = slide_mode or 0
+  vis_mode = vis_mode or 0
+  
+  if slide_mode == 1 then
+    width = width or 10
+    height = height or 100
+  else
+    width = width or 100
+    height = height or 10
+  end
+
+  col = col or Color.new(0,0,255)  --Blue
+
+  local c = setmetatable(
+    {
+      W = width,
+      H = height,
+      C = col,
+      V = val,
+      MV = max_val,
+      mode = {
+        slide = slide_mode,
+        vis = vis_mode,
+        pic = false
+      }
+    },
+    {
+      __index = BAR
+    }
+  )
+
+  return c
+end
+
+--[[ DRAW FUNCTION ]]--
+function BAR:Draw(x,y)
+  x = x or 0
+  y = y or 0
+  
+  local w = 0
+  local h = 0
+  local PERCENTAGE = BAR.fpfn(self.MV,self.V)
+  
+  if self.mode.vis == 0 then          --[[ bar displays horizontaly ]]--
+    if self.mode.slide == 0 then        --[[ bar decreases/increases from the left ]]--
+      h = self.H
+      w = BAR.fnfp(self.W,PERCENTAGE)
+    elseif self.mode.slide == 1 then    --[[ bar decreases/increases from the right ]]--
+      x = x + (self.W - BAR.fnfp(self.W,PERCENTAGE))
+      h = self.H
+      w = BAR.fnfp(self.W,PERCENTAGE)
+    end
+  elseif self.mode.vis == 1 then    --[[ bar displays vertical ]]--
+    if self.mode.slide == 0 then        --[[ bar decreases/increases from the top ]]--
+      w = self.W
+      h = BAR.fnfp(self.H,PERCENTAGE)
+    elseif self.mode.slide == 1 then    --[[ bar decreases/increases from the bottom ]]--
+      y = y + (self.H - BAR.fnfp(self.H,PERCENTAGE))
+      w = self.W
+      h = BAR.fnfp(self.H,PERCENTAGE)
+    end
+  end
+  
+  Gu.start3d()
+    Global.draw.advancedFillRect(x,y,w,h,self.C)
+  Gu.end3d()
+end
+
+--[[ SET FUNCTIONS ]]--
+function BAR:setColor(val)
+  self.C = val
+end
+
+function BAR:setHeight(val)
+  self.H = val
+end
+
+function BAR:setWidth(val)
+  self.W = val
+end
+
+function BAR:setMaxVal(val)
+  self.MV = val
+end
+
+function BAR:setVal(val)
+  if val < 0 then val = 0 end
+  if val > self.MV then val = self.MV end
+  self.V = val
+end
+
+function BAR:setPercentage(val)
+  if val < 0 then val = 0 end
+  if val > 100 then val = 100 end
+  self.V = BAR.fnfp(self.MV,val)
+end
+
+function BAR:setSlideMode(val)
+  val = val or 0
+  self.mode.slide = val
+end
+
+function BAR:setVisMode(val)
+  val = val or 0
+  self.mode.vis = val
+end
+
+--[[ GET FUNCTIONS ]]--
+function BAR:getHeight()
+  return self.H
+end
+
+function BAR:getWidth()
+  return self.W
+end
+
+function BAR:getMaxVal()
+  return self.MV
+end
+
+function BAR:getVal()
+  return self.V
+end
+
+function BAR:getPercentage()
+  return BAR.fpfn(self.MV,self.V)
+end
+
+function BAR:getSlideMode()
+  return self.mode.slide
+end
+
+function BAR:getVisMode()
+  return self.mode.vis
+end

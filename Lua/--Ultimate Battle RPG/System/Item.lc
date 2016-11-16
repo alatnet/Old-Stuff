@@ -1,0 +1,76 @@
+requireC(Global.system.dir.main .."Price.lc")
+requireC(Global.system.dir.main .."Attributes.lc")
+
+Item = {
+  TYPE = {
+    UNKNOWN = -1,
+    NORMAL = 0,
+    SPECIAL = 1,
+    SKILL = 3,
+    EQUIPMENT = {
+      WEAPON = 4,
+      ARMOR = 5
+    },
+    EVENT = 6
+  }
+}
+
+function Item:toString()
+  return "Name:" .. self.NAME .. "\n" .. "Description:" .. self.DESCRIPTION .. "\n" .. "Type:" .. self.TYPE .. "\n" .. tostring(self.PRICE) .. tostring(self.ATTRIBUTES)
+end
+
+function Item.new(name,description,type,price,attributes)
+  name = name or ""
+  description = description or ""
+  type = type or Item.TYPE.UNKNOWN
+  price = price or Price.new(0,0)
+  attributes = attributes or Attributes.new()
+
+  local c = setmetatable(
+    {
+      NAME = name,
+      DESCRIPTION = description,
+      TYPE = type,
+      PRICE = price,
+      ATTRIBUTES = attributes
+    },
+    {
+      __index = Item,
+      __tostring = Item["toString"]
+    }
+  )
+
+  return c
+end
+
+function Item:getName()
+  return self.NAME
+end
+
+function Item:getDescription()
+  return self.DESCRIPTION
+end
+
+function Item:getType()
+  return self.TYPE
+end
+
+function Item:setName(val)
+  self.NAME = val
+end
+
+function Item:setDescription(val)
+  self.DESCRIPTION = val
+end
+
+function Item:setType(val)
+  self.TYPE = val
+end
+
+function Item:getPrice()
+  return self.PRICE
+end
+
+function Item:getAttributes()
+  return self.ATTRIBUTES
+end

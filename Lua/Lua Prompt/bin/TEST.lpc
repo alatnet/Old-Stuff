@@ -1,0 +1,8 @@
+function CmdFunc(console, args)
+  console:println("TEST")
+end
+
+
+function CmdHelp(console)
+  console.commands[table.getn(console.commands)].help = "TEST"
+end

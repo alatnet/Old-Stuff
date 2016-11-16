@@ -1,0 +1,94 @@
+--[[
+///////////////////////////////////////////////////////////////////////////////
+ 'Select and Decide osk'
+
+ Copyright(c) 2005-2006, ema.
+///////////////////////////////////////////////////////////////////////////////
+]]--
+
+requireC("../pad.lc")
+--dofile "pad.lc"
+
+
+-------------------------------------------------------------------------------
+Osk = {
+  BgColor  = Color.new(180,180,180)
+, FgColor  = Color.new(  0,  0,  0)
+, SelColor = Color.new(200,255,200)
+, Palette = {
+    [false] = {
+      [0]="1234567890"
+    , [1]="qwertyuiop"
+    , [2]="-asdfghjkl"
+    , [3]="(zxc)vbnm~"
+    , [4]="\b, .\\/; ='"
+    }
+  , [true] = {
+      [0]="!@#$%^&*[]"
+    , [1]="QWERTYUIOP"
+    , [2]="_ASDFGHJKL"
+    , [3]="{ZXC}VBNM`"
+    , [4]="\n<\t>|?:\t+\""
+    }
+  }
+}
+
+
+-------------------------------------------------------------------------------
+function Osk.new()
+  local c = setmetatable( {
+      InX = 4
+    , InY = 2
+    , Char = nil
+    , First = true
+  }, { __index = Osk } )
+  return c
+end
+
+
+-------------------------------------------------------------------------------
+function Osk:Draw(x, y, s)
+  s = s or screen
+  x = math.min(x or 392, 392)
+  y = math.min(y or 232, 232)
+  s:fillRect(x, y, 80, 40, self.BgColor)
+  s:fillRect(x+self.InX*8, y+self.InY*8, 8, 8, self.SelColor)
+  for i=0, 4 do
+    s:print(x, y+i*8,
+      self.Palette[self.Shift][i], self.FgColor)
+  end
+end
+
+
+-------------------------------------------------------------------------------
+function Osk:Update()
+  local ret = nil
+
+  if Pad.tR1 then
+    if self.First then
+      self.First = false
+    else
+      return ret, false
+    end
+  end
+
+  local lh = Pad:GetHrep()
+  local lv = Pad:GetVrep()
+
+  self.Shift = Pad.L1
+  self.InX = math.mod(self.InX + lh + 10, 10)
+  self.InY = math.mod(self.InY + lv + 5 , 5)
+  self.Char = string.sub(
+    self.Palette[self.Shift][self.InY],
+    self.InX + 1, self.InX + 1 )
+
+  if Pad.tRr or Pad.tRd then ret = self.Char end
+  if Pad.tRl then ret = "\b" end
+  if Pad.tRu then ret = "\n" end
+
+  return ret, true
+end
+
+-------------------------------------------------------------------------------
+function Osk:Help()
+end

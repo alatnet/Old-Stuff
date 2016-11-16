@@ -1,0 +1,28 @@
+function load_server_list()
+  NET.servers.sel = {
+    {
+      name="TEST",
+      IP="127.0.0.1",
+      port=80,
+      num_ppl=0,
+      max_ppl=1,
+      num_games=0,
+    },
+    {
+      name="TEST2",
+      IP="localhost",
+      port=80,
+      num_ppl=0,
+      max_ppl=1,
+      num_games=0,
+    },
+    {
+      name="TEST3",
+      IP="0.0.0.0",
+      port=0,
+      num_ppl=0,
+      max_ppl=1,
+      num_games=0,
+    },
+  }
+end

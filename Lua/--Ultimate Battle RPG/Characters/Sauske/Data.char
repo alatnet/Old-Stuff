@@ -1,0 +1,90 @@
+requireC(Global.system.dir.main .. "AnimatedSprite.lc")
+requireC(Global.system.dir.main .. "AnimatedSprite3D.lc")
+
+function Global.characters.addChar(folderName,dirName)
+  Global.characters.list[folderName] = {  --"Sauske"
+    cid = nil,
+    name = "Uchiha Sasuke",
+    description = "Sasuke is one of the few survivors of the Uchiha Clan, one of the most powerful clans of the Leaf Village. He is the number one rookie genin and is considered a genius. Sasuke has a very mysterious and bloody past, and his only goal in life is revenge. Sasuke is a dark and serious kid. This makes him look cool to all of the girls in his class, but he doesn't care about that. Sasuke only cares about revenge, and to do this he needs to become strong, very strong. The exact reason for his lust for vengeance is still unknown, but it does have something to do with his elder brother and parents. Sasuke is teamed up with Naruto and Sakura. At first Sasuke wasn't to happy about his little group, with Sakura having a huge crush on him and Naruto being the number one loudest ninja of the Leaf Village. But after some life and death battles they fought together Sasuke came to respect them. Especially Naruto, at first Sasuke thougt of Naruto as a loser, but then Naruto saved his life in the battle against Haku and Zabuza. Naruto defeated an enemy Susake himself couldn't handle. His pride was hurt, but he started to respect Naruto and started seeing him as his rival rather then some useless loser. Because Sasuke is a descendant of the Uchiha Clan he possesses its Advanced Bloodline. This gives him the ability to use Sharingan. With his Sharingan Sasuke is able to see through an opponent's strategy and counter it. He is also able to copy moves with it and improve them, like he did with one of Lee's TaiJutsu moves. If you add up the fact that Sasuke was already a very talented ninja even before he could use his Sharingan, you have a very powerful ninja who improves really fast and has even greater potential.",
+    stats = Attributes.new(100,100,5,5,5,5,5,5,5,5,10,1,1,1,1,1,10),
+    ranks = {
+      "Ninja Academy Student",
+      "Genin",
+      "Chunin",
+      "Special Jonin",
+      "Jonin",
+      "Sanin",
+      "Satoosa",
+      "Kage"
+    },
+    dir = {
+      folder = dirName .. folderName,
+      img = "Images/",
+      left = "Flipped/",
+      right = "Norm/",
+      sfx = "SFX/"
+    },
+    list = {
+      standing = {l = "Standing(F).png",r = "Standing.png",rows = 2,cols = 3,freq = 0},
+      walking = {l = "Walking(F).png",r = "Walking.png",rows = 2,cols = 3,freq = 0},
+      running = {l = "Running(F).png",r = "Running.png",rows = 2,cols = 3,freq = 0},
+      jumping = {l = "Jumping(F).png",r = "Jumping.png",rows = 1,cols = 3,freq = 0},
+      falling = {l = "Falling(F).png",r = "Falling.png",rows = 1,cols = 3,freq = 0},
+      landing = {l = "Landing2(F).png",r = "Landing2.png",rows = 2,cols = 2,freq = 0},
+      guarding = {
+        ground = {l = "Guard(F).png",r = "Guard.png",rows = 1,cols = 1,freq = 0},
+        air = {l = "Air_Guard(F).png",r = "Air_Guard.png",rows = 1,cols = 1,freq = 0}
+      },
+      attacking = {
+        air = {l = "Air_Attack(F).png",r = "Air_Attack.png",rows = 2,cols = 2,freq = 0},
+        c1 = {l = "Combo1(F).png",r = "Combo1.png",rows = 2,cols = 2,freq = 0},
+        c2 = {l = "Combo2(F).png",r = "Combo2.png",rows = 2,cols = 2,freq = 0},
+        c3 = {l = "Combo3(F).png",r = "Combo3.png",rows = 1,cols = 5,freq = 0}
+      },
+      dammaged = {l = "Damaged(F).png",r = "Damaged.png",rows = 1,cols = 1,freq = 0},
+      knockback = {l = "Knockback(F).png",r = "Knockback.png",rows = 3,cols = 3,freq = 0},
+      knockback_r = {l = "Knockback_Recover(F).png",r = "Knockback_Recover.png",rows = 1,cols = 2,freq = 0}
+    },
+    sfx = {
+      standing = nil,
+      walking = nil,
+      running = nil,
+      jumping = nil,
+      falling = nil,
+      landing = nil,
+      guarding = {
+        norm = nil,
+        hit = nil
+      },
+      attacking = {
+        air = nil,
+        c1 = nil,
+        c2 = nil,
+        c3 = nil
+      },
+      dammaged = nil,
+      knockback = nil,
+      knockback_r = nil
+    },
+    spd = {
+      x = 2,
+      x2 = 4,
+      y = 3,
+      stop = {
+        w = 0.5,
+        r = 0.25
+      }
+    }
+  }
+
+  Global.characters.list[folderName].cid = System.md5sum(Global.characters.list[folderName].name .. Global.characters.list[folderName].description .. tostring(Global.characters.list[folderName].stats) .. table.concat(Global.characters.list[folderName].ranks))
+  
+  function Global.characters.list[folderName]:load()
+  end
+  
+  function Global.characters.list[folderName]:unload()
+  end
+  
+  function Global.characters.list[folderName]:draw()
+  end
+end

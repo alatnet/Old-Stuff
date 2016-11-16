@@ -1,0 +1,36 @@
+1: HTTP/1.1 200 OK
+Date: Mon, 09 Oct 2006 17:39:58 GMT
+Server: Apache/2.2.0 (Win32) PHP/5.1.2
+X-Powered-By: PHP/5.1.2
+Content-Length: 422
+Connection: close
+Content-Type: text/html; charset=ISO-8859-1
+
+function load_server_list()
+  NET.servers.sel = {
+2:     {
+      name="TEST",
+      IP="127.0.0.1",
+      port=80,
+      num_ppl=0,
+      max_ppl=1,
+      num_games=0,
+    },
+    {
+      name="TEST2",
+      IP="localhost",
+      port=80,
+      num_ppl=0,
+      max_ppl=1,
+      num_games=0,
+    },
+    {
+     3:  name="TEST3",
+      IP="0.0.0.0",
+      port=0,
+      num_ppl=0,
+      max_ppl=1,
+      num_games=0,
+    },
+  }
+end

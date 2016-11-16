@@ -1,0 +1,181 @@
+================================================================================================================================
+**Info**
+================================================================================================================================
+The goal of this class\library is to provide an way to create a bar (be it a progress bar or an hp bar).
+
+Created by: alatnet
+Dev Team X Productions
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+================================================================================================================================
+**Constructor Summary**
+================================================================================================================================
+BAR.new(Number val,Number max_val,Number width,Number height,Color col)
+  Creates a new bar.
+--------------------------------------------------------------------------------------------------------------------------------
+
+================================================================================================================================
+**Method Summary**
+================================================================================================================================
+   nil | BAR:setHeight(Number val)
+       |   Set the height of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+   nil | BAR:setWidth(Number val)
+       |   Set the width of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+   nil | BAR:setMaxVal(Number val)
+       |   Set the max value of the bar
+-------+-------------------------------.-----------------------------------------------------------------------------------------
+   nil | BAR:setVal(Number val)
+       |   Set the value of the bar. (Also changes percentage.)
+-------+------------------------------------------------------------------------------------------------------------------------
+   nil | BAR:setPercentage(Number val)
+       |   Set the percentage of the bar. (Also changes value.)
+-------+------------------------------------------------------------------------------------------------------------------------
+Number | BAR:getHeight()
+       |   Get the height of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+Number | BAR:getWidth()
+       |   Get the width of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+Number | BAR:getMaxVal()
+       |   Get the max value of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+Number | BAR:getVal()
+       |   Get the value of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+Number | BAR:getPercentage()
+       |   Get the percentage of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+   nil | BAR:Draw(Number x,Number y,Image s)
+       |   Draw the bar to 's' at point 'x' and point 'y'.
+-------+------------------------------------------------------------------------------------------------------------------------
+
+
+================================================================================================================================
+**Constructor Detail**
+================================================================================================================================
+BAR.new(Number val,Number max_val,Number width,Number height,Color col)
+  Creates a new bar.
+  Parameters:
+    val - The starting value of the bar.  (Defaults to 0.)
+    max_val - The max value of the bar.  (Defaults to 100.)
+    width - The width of the bar.  (Defaults to 100.)
+    height - The height of the bar.  (Defaults to 10.)
+    col - The color of the bar.  (Defaults to Color.new(190,190,190).)
+--------------------------------------------------------------------------------------------------------------------------------
+
+================================================================================================================================
+**Method Detail**
+================================================================================================================================
+   nil | BAR:setHeight(Number val)
+       |   Set the height of the bar.
+       |   Parameters:
+       |     val - The height requested.
+-------+------------------------------------------------------------------------------------------------------------------------
+   nil | BAR:setWidth(Number val)
+       |   Set the width of the bar.
+       |   Parameters:
+       |     val - The width requested.
+-------+------------------------------------------------------------------------------------------------------------------------
+   nil | BAR:setMaxVal(Number val)
+       |   Set the max value of the bar
+       |   Parameters:
+       |     val - The max value requested.
+-------+------------------------------------------------------------------------------------------------------------------------
+   nil | BAR:setVal(Number val)
+       |   Set the value of the bar (Also changes percentage).
+       |   Parameters:
+       |     val - The value requested. (If less than 0, defaults to 0.  If greater than max value, defaults to max value.)
+-------+------------------------------------------------------------------------------------------------------------------------
+   nil | BAR:setPercentage(Number val)
+       |   Set the percentage of the bar (Also changes value).
+       |   Parameters:
+       |     val - The percentage requested (If less than 0, defaults to 0.  If greater than 100, defaults to 100.)
+-------+------------------------------------------------------------------------------------------------------------------------
+Number | BAR:getHeight()
+       |   Get the height of the bar.
+       |   Returns:
+       |     The height of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+Number | BAR:getWidth()
+       |   Get the width of the bar.
+       |   Returns:
+       |     The width of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+Number | BAR:getMaxVal()
+       |   Get the max value of the bar.
+       |   Returns:
+       |     The max value of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+Number | BAR:getVal()
+       |   Get the value of the bar.
+       |   Returns:
+       |     The value of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+Number | BAR:getPercentage()
+       |   Get the percentage of the bar.
+       |   Returns:
+       |     The percentage of the bar.
+-------+------------------------------------------------------------------------------------------------------------------------
+   nil | BAR:Draw(Number x,Number y,Image s)
+       |   Draw the bar to 's' at point 'x' and point 'y'.
+       |   Parameters:
+       |     x - The X position to draw the bar.  (Defaults to 0.)
+       |     y - The Y position to draw the bar.  (Defaults to 0.)
+       |     s - Image to draw the bar to.  (Defaults to the screen.)
+-------+------------------------------------------------------------------------------------------------------------------------
+
+================================================================================================================================
+**Example**
+================================================================================================================================
+dofile("./BAR.lc")
+
+function START()
+  return Controls.read():start()
+end
+
+function UP()
+  return Controls.read():up()
+end
+
+function DOWN()
+  return Controls.read():down()
+end
+
+function LEFT()
+  return Controls.read():left()
+end
+
+function RIGHT()
+  return Controls.read():right()
+end
+
+
+test_bar = BAR.new(0,100,100,10,Color.new(255,0,0))
+
+while not START() do
+  screen:clear(Color.new(255,255,255))
+  
+  local x = (screen:width()/2) - (test_bar:getWidth()/2)
+  local y = (screen:height()/2) - (test_bar:getHeight()/2)
+
+  test_bar:Draw(x,y)
+
+  screen:print(8,8,"V: " .. test_bar:getVal(),Color.new(0,0,0))
+  screen:print(8,16,"%: " .. test_bar:getPercentage(),Color.new(0,0,0))
+
+  screen:flip()
+
+  if UP() then
+    test_bar:setVal(test_bar:getVal()+1)
+  elseif DOWN() then
+    test_bar:setVal(test_bar:getVal()-1)
+  elseif LEFT() then
+    test_bar:setPercentage(test_bar:getPercentage()-1)
+  elseif RIGHT() then
+    test_bar:setPercentage(test_bar:getPercentage()+1)
+  end
+end
+--------------------------------------------------------------------------------------------------------------------------------

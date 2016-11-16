@@ -1,0 +1,1 @@
+Change all png's and jpg's to .img's.

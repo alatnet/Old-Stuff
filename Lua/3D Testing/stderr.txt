@@ -1,0 +1,19 @@
+module './AnimatedSprite3D.lc' not found:
+    no field package.preload['./AnimatedSprite3D.lc']
+    no file './AnimatedSprite3D.lc'
+    no file './AnimatedSprite3D.lc.lua'
+    no file './AnimatedSprite3D.lc.lc'
+    no file '././AnimatedSprite3D.lc'
+    no file '././AnimatedSprite3D.lc.lua'
+    no file '././AnimatedSprite3D.lc.lc'
+Check stderr.txt to see what might have gone wrong in loading or running the lua file.
+
+--Loading Errors--
+loadfile(): ./AnimatedSprite3D.lc:340: unexpected symbol
+loadfile(): cannot open ./AnimatedSprite3D.lc.lua: No such file or directory
+loadfile(): cannot open ./AnimatedSprite3D.lc.lc: No such file or directory
+loadfile(): ././AnimatedSprite3D.lc:340: unexpected symbol
+loadfile(): cannot open ././AnimatedSprite3D.lc.lua: No such file or directory
+loadfile(): cannot open ././AnimatedSprite3D.lc.lc: No such file or directory
+
+--Runtime Errors--

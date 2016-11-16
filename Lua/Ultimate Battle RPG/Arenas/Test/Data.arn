@@ -1,0 +1,131 @@
+function Global.arenas.addArena(folderName,dirName)
+  Global.arenas.list[folderName] = {
+    Boarders = {
+      x=-600,
+      y=0,
+      w=1200,
+      h=300
+    },
+    Platforms = {
+      --{x,y,w,h},
+    },
+    Obj3D ={
+      Num = 2,
+      Images = {
+        dir = dirName .. folderName .. "/Images/",
+        list = {
+          "Backing.png",
+          "Ground.png"
+        },
+        load = {}
+      },
+      Pos = {
+        {x=0.0,y=-50.0,z=-350.0},
+        {x=0.0,y=0.0,z=0}
+      },
+      Size = {
+        {w = 1400,h = 600},
+        {w = 1200,h = 200}
+      },
+      Tiling = {
+        {u = 2,v = 1},
+        {u = 4,v = 1}
+      },
+      Rot ={
+        {x=180.0,y=0.0,z=0.0},
+        {x=180.0,y=0.0,z=0.0}
+      },
+      Prim = {
+        Gu.TRIANGLE_STRIP,
+        Gu.TRIANGLE_STRIP
+      },
+      VType = {
+        Gu.TEXTURE_32BITF+Gu.VERTEX_32BITF+Gu.TRANSFORM_3D,
+        Gu.TEXTURE_32BITF+Gu.VERTEX_32BITF+Gu.TRANSFORM_3D
+      },
+      Models = {
+        {   --[BG 3D Model Code Start]
+          {0.0,0.0,-700.0,-300.0,0.0},  --Vertex 1
+          {1.0,0.0,700.0,-300.0,0.0},  --Vertex 2
+          {0.0,1.0,-700.0,300.0,0.0},  --Vertex 3
+          {1.0,1.0,700.0,300.0,0.0}  --Vertex 4
+        },   --[BG 3D Model Code End]
+        {   --[Floor 3D Model Code Start]
+          {0.0,0.0,-600.0,0.0,100.0},  --Vertex 1
+          {1.0,0.0,600.0,0.0,100.0},  --Vertex 2
+          {0.0,1.0,-600.0,0.0,-100.0},  --Vertex 3
+          {1.0,1.0,600.0,0.0,-100.0}  --Vertex 4
+        }   --[Floor 3D Model Code End]
+      }
+    }
+  }
+  
+  function Global.arenas.list[folderName]:load()
+    for i=1,self.Obj3D.Num do
+      self.Obj3D.Images.list.load[i] = Image.load(self.Obj3D.Images.dir .. self.Obj3D.Images.list[i])
+    end
+  end
+  
+  function Global.arenas.list[folderName]:unload()
+    for i=1,self.Obj3D.Num do
+      self.Obj3D.Images.list.load[i] = nil
+    end
+    collectgarbage()
+  end
+  
+  function Global.arenas.list[folderName]:checkBoarders(x,y,w,h)
+    if x > self.Boarders.x and x+w < self.Boarders.x+self.Boarders.w and y > self.Boarders.y and y+h < self.Boarders.y+self.Boarders.h then
+      return x,y
+    else
+      local retX,retY = x,y
+      if x < self.Boarders.x then
+        retX = self.Boarders.x
+      elseif x+w > self.Boarders.x+self.Boarders.w then
+        retX = ((self.Boarders.x+self.Boarders.w)-w)
+      end
+      
+      if y < self.Boarders.y then
+        retY = self.Boarders.y
+      elseif y+h > self.Boarders.y+self.Boarders.h then
+        retY = (self.Boarders.y+self.Boarders.h)
+      end
+      
+      return retX,retY
+    end
+  end
+  
+  function Global.arenas.list[folderName]:draw()
+    Gu.enable(Gu.TEXTURE_2D)
+    for i=1,self.Obj3D.Num do
+      Gum.matrixMode(Gu.MODEL)
+      Gum.loadIdentity()
+      
+      Gu.texEnvColor(Color.new(255,255,255))  --COLOR!!!--
+      Gu.texFunc(Gu.TFX_BLEND, Gu.TCC_RGBA)
+      Gu.texFilter(Gu.NEAREST_MIPMAP_NEAREST,Gu.LINEAR_MIPMAP_LINEAR)
+      Gu.texOffset(0, 0)
+      
+      if _G.Gu["texWrap"] ~= nil then
+        Gu.texWrap(Gu.REPEAT,Gu.REPEAT)
+      end
+      
+      Gu.texImage(self.Obj3D.Images.list[i])
+      Gu.texScale(self.Obj3D.Tiling[i].u, self.Obj3D.Tiling[i].v)
+      
+      Gu.colorMaterial(Gu.AMBIENT)
+      Gu.color(Color.new(0,0,0,255))
+      
+      Gu.colorMaterial(Gu.DIFFUSE)
+      Gu.color(Color.new(0,0,0,255))
+      
+      Gu.colorMaterial(Gu.SPECULAR)
+      Gu.color(Color.new(0,0,0,255))
+      
+      -- setup matrix for img
+      Gum.translate(self.Obj3D.Pos[i].x, self.Obj3D.Pos[i].y, self.Obj3D.Pos[i].z)
+      Gum.rotateXYZ(self.Obj3D.Rot[i].x*(Gu.PI/180),self.Obj3D.Rot[i].y*(Gu.PI/180),self.Obj3D.Rot[i].z*(Gu.PI/180))
+      -- draw img
+      Gum.drawArray(self.Obj3D.Prim[i], self.Obj3D.VType[i], self.Obj3D.Models[i])
+    end
+  end
+end

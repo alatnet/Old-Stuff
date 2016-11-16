@@ -1,0 +1,25 @@
+1. Are you able to create lua classes fairly well?
+Cus my game is going to use alot of lua classes and it's going to be memory efficent.
+Here's some info if you don't know how to create lua classes:
+-http://www.lua.org/pil/13.html <- Metatables and Metamethods
+-http://www.lua.org/pil/15.html <- Packages
+-http://www.lua.org/pil/16.html <- Object-Oriented Programming
+I recomend reading these to get a fair understanding of classes in luaplayer.
+I believe I posted something that explained lua classes a long time ago, although I can't remember where it is.
+
+2. Do you know how to use luaplayer's version of sockets well?
+This is something that is a must for my game as it's going to communicate to not only another PSP but to a Java based server and PHP pages.
+
+3. Do you know how to use coroutines?
+This is also another requirement as I believe that coroutines are very useful in handling various things, like sockets.
+Here's some info on coroutines, if you don't know how to use them:
+-http://www.lua.org/pil/9.html
+
+I'm also going to need a sample of your coding style so that I and people that are working on the project can learn how to read your code and be able to improve the code you contribute to the project, if nessesary.
+
+If you want, you can join my development team, Dev Team X, and be credited in the project as a member rather than being credited as an individual that contributed to the project.
+
+Finaly, I request that you be truthful, and if there's any sort of problems (whether it be the project or people that are working on the project) to let me know so that I can help in correcting it.
+
+I hope that your reply will be sent as soon as posible and wish you luck if you accept to help out.
+- alatnet (Dev Team X founder)

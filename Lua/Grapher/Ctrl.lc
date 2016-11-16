@@ -1,0 +1,451 @@
+Ctrl = {
+  up = {press = false,hold = false,press1 = false},       --tap = false,
+  down = {press = false,hold = false,press1 = false},
+  left = {press = false,hold = false,press1 = false},
+  right = {press = false,hold = false,press1 = false},
+  
+  triangle = {press = false,hold = false,press1 = false},
+  cross = {press = false,hold = false,press1 = false},
+  square = {press = false,hold = false,press1 = false},
+  circle = {press = false,hold = false,press1 = false},
+  
+  ltrig = {press = false,hold = false,press1 = false},
+  rtrig = {press = false,hold = false,press1 = false},
+  
+  start = {press = false,hold = false,press1 = false},
+  select = {press = false,hold = false,press1 = false},
+  
+  ax = 0,
+  ay = 0,
+  axdz = 32,
+  aydz = 32,
+
+  timer_hold = Timer.new(),
+  --timer_tap = Timer.new(),
+
+  hold_time = 500,
+  --tap_time = 250,
+  
+  pressed = {left = false,right = false,bottom = false,total = false},
+  prev = {
+    up = {press = false,hold = false,press1 = false},
+    down = {press = false,hold = false,press1 = false},
+    left = {press = false,hold = false,press1 = false},
+    right = {press = false,hold = false,press1 = false},
+    
+    triangle = {press = false,hold = false,press1 = false},
+    cross = {press = false,hold = false,press1 = false},
+    square = {press = false,hold = false,press1 = false},
+    circle = {press = false,hold = false,press1 = false},
+    
+    ltrig = {press = false,hold = false,press1 = false},
+    rtrig = {press = false,hold = false,press1 = false},
+    
+    start = {press = false,hold = false,press1 = false},
+    select = {press = false,hold = false,press1 = false},
+  }
+}
+
+function Ctrl:printNub(x,y,col,s)
+  s = s or screen
+
+  s:print(x,y,"Nub: (" .. Ctrl.ax .. "," .. Ctrl.ay .. ")",col)
+end
+
+function Ctrl:GetLh()
+  if self.right.press then return  1 end
+  if self.left.press then return -1 end
+  return 0
+end
+
+function Ctrl:GetLv()
+  if self.down.press then return  1 end
+  if self.up.press then return -1 end
+  return 0
+end
+
+function Ctrl:GetRh()
+  if self.circle.press then return  1 end
+  if self.square.press then return -1 end
+  return 0
+end
+
+function Ctrl:GetRv()
+  if self.cross.press then return  1 end
+  if self.triangle.press then return -1 end
+  return 0
+end
+
+function Ctrl:Update()
+  local input = Controls.read()
+  local function CalcDeadZone(x, d)
+    if x >= d then
+      return x - d
+    elseif x >= -d then
+      return 0
+    else
+      return x + d
+    end
+  end
+  ----
+  self.pressed.left = false
+  self.pressed.right = false
+  self.pressed.bottom = false
+  self.pressed.total = false
+  ----
+  self.prev.up.press = self.up.press
+  self.prev.down.press = self.down.press
+  self.prev.left.press = self.left.press
+  self.prev.right.press = self.right.press
+
+  self.prev.triangle.press = self.triangle.press
+  self.prev.cross.press = self.cross.press
+  self.prev.square.press = self.square.press
+  self.prev.circle.press = self.circle.press
+
+  self.prev.ltrig.press = self.ltrig.press
+  self.prev.rtrig.press = self.rtrig.press
+
+  self.prev.start.press = self.start.press
+  self.prev.select.press = self.select.press
+  ----
+  self.prev.up.hold = self.up.hold
+  self.prev.down.hold = self.down.hold
+  self.prev.left.hold = self.left.hold
+  self.prev.right.hold = self.right.hold
+
+  self.prev.triangle.hold = self.triangle.hold
+  self.prev.cross.hold = self.cross.hold
+  self.prev.square.hold = self.square.hold
+  self.prev.circle.hold = self.circle.hold
+
+  self.prev.ltrig.hold = self.ltrig.hold
+  self.prev.rtrig.hold = self.rtrig.hold
+
+  self.prev.start.hold = self.start.hold
+  self.prev.select.hold = self.select.hold
+  ----
+--  self.prev.up.tap = self.up.tap
+--  self.prev.down.tap = self.down.tap
+--  self.prev.left.tap = self.left.tap
+--  self.prev.right.tap = self.right.tap
+
+--  self.prev.triangle.tap = self.triangle.tap
+--  self.prev.cross.tap = self.cross.tap
+--  self.prev.square.tap = self.square.tap
+--  self.prev.circle.tap = self.circle.tap
+
+--  self.prev.ltrig.tap = self.ltrig.tap
+--  self.prev.rtrig.tap = self.rtrig.tap
+
+--  self.prev.start.tap = self.start.tap
+--  self.prev.select.tap = self.select.tap
+  ----
+  self.up.press = input:up()
+  self.down.press = input:down()
+  self.left.press = input:left()
+  self.right.press = input:right()
+
+  self.triangle.press = input:triangle()
+  self.cross.press = input:cross()
+  self.square.press = input:square()
+  self.circle.press = input:circle()
+
+  self.ltrig.press = input:l()
+  self.rtrig.press = input:r()
+
+  self.start.press = input:start()
+  self.select.press = input:select()
+  ----
+  self.up.hold = false
+  self.down.hold = false
+  self.left.hold = false
+  self.right.hold = false
+
+  self.triangle.hold = false
+  self.cross.hold = false
+  self.square.hold = false
+  self.circle.hold = false
+
+  self.ltrig.hold = false
+  self.rtrig.hold = false
+
+  self.start.hold = false
+  self.select.hold = false
+  ----
+--  self.up.tap = false
+--  self.down.tap = false
+--  self.left.tap = false
+--  self.right.tap = false
+
+--  self.triangle.tap = false
+--  self.cross.tap = false
+--  self.square.tap = false
+--  self.circle.tap = false
+
+--  self.ltrig.tap = false
+--  self.rtrig.tap = false
+
+--  self.start.tap = false
+--  self.select.tap = false
+  ----
+  self.ax = CalcDeadZone(input:analogX(), self.axdz)
+  self.ay = CalcDeadZone(input:analogY(), self.aydz)
+  if self.ax ~= 0 or self.ax ~= 0 then self.pressed.left = true end
+  ----
+  if self.up.press then
+    self.pressed.left = true
+  end
+  if self.down.press then
+    self.pressed.left = true
+  end
+  if self.left.press then
+    self.pressed.left = true
+  end
+  if self.right.press then
+    self.pressed.left = true
+  end
+
+  if self.triangle.press then
+    self.pressed.right = true
+  end
+  if self.cross.press then
+    self.pressed.right = true
+  end
+  if self.square.press then
+    self.pressed.right = true
+  end
+  if self.circle.press then
+    self.pressed.right = true
+  end
+
+  if self.ltrig.press then
+    self.pressed.left = true
+  end
+  if self.rtrig.press then
+    self.pressed.right = true
+  end
+
+  if self.start.press then
+    self.pressed.bottom = true
+  end
+  if self.select.press then
+    self.pressed.bottom = true
+  end
+  ----
+  if self.timer_hold:start() >= self.hold_time then
+    self.timer_hold:reset(1)
+
+    if self.up.press then
+      if self.prev.up.press then
+        self.up.hold = true
+      end
+    end
+    if self.down.press then
+      if self.prev.down.press then
+        self.down.hold = true
+      end
+    end
+    if self.left.press then
+      if self.prev.left.press then
+        self.left.hold = true
+      end
+    end
+    if self.right.press then
+      if self.prev.right.press then
+        self.right.hold = true
+      end
+    end
+    
+    if self.triangle.press then
+      if self.prev.triangle.press then
+        self.triangle.hold = true
+      end
+    end
+    if self.cross.press then
+      if self.prev.cross.press then
+        self.cross.hold = true
+      end
+    end
+    if self.square.press then
+      if self.prev.square.press then
+        self.square.hold = true
+      end
+    end
+    if self.circle.press then
+      if self.prev.circle.press then
+        self.circle.hold = true
+      end
+    end
+
+    if self.ltrig.press then
+      if self.prev.ltrig.press then
+        self.ltrig.hold = true
+      end
+    end
+    if self.rtrig.press then
+      if self.prev.rtrig.press then
+        self.rtrig.hold = true
+      end
+    end
+
+    if self.start.press then
+      if self.prev.start.press then
+        self.start.hold = true
+      end
+    end
+    if self.select.press then
+      if self.prev.select.press then
+        self.select.hold = true
+      end
+    end
+  end
+  ----
+  if self.up.press then
+    if not self.prev.up.press1 then
+      self.prev.up.press1 = true
+      self.up.press1 = true
+    else
+      self.up.press1 = false
+    end
+  else
+    self.up.press1 = false
+    self.prev.up.press1 = false
+  end
+  if self.down.press then
+    if not self.prev.down.press1 then
+      self.prev.down.press1 = true
+      self.down.press1 = true
+    else
+      self.down.press1 = false
+    end
+  else
+    self.down.press1 = false
+    self.prev.down.press1 = false
+  end
+  if self.left.press then
+    if not self.prev.left.press1 then
+      self.prev.left.press1 = true
+      self.left.press1 = true
+    else
+      self.left.press1 = false
+    end
+  else
+    self.left.press1 = false
+    self.prev.left.press1 = false
+  end
+  if self.right.press then
+    if not self.prev.right.press1 then
+      self.prev.right.press1 = true
+      self.right.press1 = true
+    else
+      self.right.press1 = false
+    end
+  else
+    self.right.press1 = false
+    self.prev.right.press1 = false
+  end
+  
+  if self.triangle.press then
+    if not self.prev.triangle.press1 then
+      self.prev.triangle.press1 = true
+      self.triangle.press1 = true
+    else
+      self.triangle.press1 = false
+    end
+  else
+    self.triangle.press1 = false
+    self.prev.triangle.press1 = false
+  end
+  if self.cross.press then
+    if not self.prev.cross.press1 then
+      self.prev.cross.press1 = true
+      self.cross.press1 = true
+    else
+      self.cross.press1 = false
+    end
+  else
+    self.cross.press1 = false
+    self.prev.cross.press1 = false
+  end
+  if self.square.press then
+    if not self.prev.square.press1 then
+      self.prev.square.press1 = true
+      self.square.press1 = true
+    else
+      self.square.press1 = false
+    end
+  else
+    self.square.press1 = false
+    self.prev.square.press1 = false
+  end
+  if self.circle.press then
+    if not self.prev.circle.press1 then
+      self.prev.circle.press1 = true
+      self.circle.press1 = true
+    else
+      self.circle.press1 = false
+    end
+  else
+    self.circle.press1 = false
+    self.prev.circle.press1 = false
+  end
+  
+  if self.ltrig.press then
+    if not self.prev.ltrig.press1 then
+      self.prev.ltrig.press1 = true
+      self.ltrig.press1 = true
+    else
+      self.ltrig.press1 = false
+    end
+  else
+    self.ltrig.press1 = false
+    self.prev.ltrig.press1 = false
+  end
+  if self.rtrig.press then
+    if not self.prev.rtrig.press1 then
+      self.prev.rtrig.press1 = true
+      self.rtrig.press1 = true
+    else
+      self.rtrig.press1 = false
+    end
+  else
+    self.rtrig.press1 = false
+    self.prev.rtrig.press1 = false
+  end
+  
+  if self.start.press then
+    if not self.prev.start.press1 then
+      self.prev.start.press1 = true
+      self.start.press1 = true
+    else
+      self.start.press1 = false
+    end
+  else
+    self.start.press1 = false
+    self.prev.start.press1 = false
+  end
+  if self.select.press then
+    if not self.prev.select.press1 then
+      self.prev.select.press1 = true
+      self.select.press1 = true
+    else
+      self.select.press1 = false
+    end
+  else
+    self.select.press1 = false
+    self.prev.select.press1 = false
+  end
+  ----
+--  if self.timer_tap:start() >= self.tap_time then
+--    self.timer_tap:reset(1)
+--  end
+  ----
+  self.pressed.total = self.pressed.left or self.pressed.right or self.pressed.bottom
+
+  if not self.pressed.total then
+    self.timer_hold:reset(1)
+  end
+  ----
+  return self.pressed.total
+end

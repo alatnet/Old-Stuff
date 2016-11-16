@@ -1,0 +1,147 @@
+--[[
+///////////////////////////////////////////////////////////////////////////////
+ 'TwinTail input method'
+
+ Copyright(c) 2005-2006, ema.
+///////////////////////////////////////////////////////////////////////////////
+]]--
+
+require("pad.lc")
+--dofile "pad.lc"
+
+
+-------------------------------------------------------------------------------
+Osk = {
+  BgColor  = Color.new(180,180,180)
+, FgColor  = Color.new(  0,  0,  0)
+, SelColor = Color.new(200,255,200)
+, KeyType = 1
+, Palette = {
+    { -- 101 like
+      [false] = {
+        [0]="1234567890"
+      , [1]="qwertyuiop"
+      , [2]="-asdfghjkl"
+      , [3]="(zxc)vbnm~"
+      , [4]="\b, .\\/; ='"
+      }
+    , [true] = {
+        [0]="!@#$%^&*[]"
+      , [1]="QWERTYUIOP"
+      , [2]="_ASDFGHJKL"
+      , [3]="{ZXC}VBNM`"
+      , [4]="\n<\t>|?:\t+\""
+      }
+    }
+  , { -- RapidTail
+      [false] = {
+        [0]="7q8\"9~(-)*"
+      , [1]="wfer0yuiop"
+      , [2]="4a5s6ghjtk"
+      , [3]="zcndvbl mx"
+      , [4]="1+2=3/;,.\\"
+      }
+    , [true] = {
+        [0]="&Q*'{_[=]`"
+      , [1]="WFER}YUIOP"
+      , [2]="$A%S^GHJTK"
+      , [3]="ZCNDVBL\tMX"
+      , [4]="!\b@\n#?:<>|"
+      }
+    }
+  }
+}
+
+
+-------------------------------------------------------------------------------
+function Osk.new()
+  local c = setmetatable( {
+      Shift = false
+    , Selecting = false
+    , InX = 0
+    , InY = 0
+    , Char = nil
+  }, { __index = Osk } )
+  return c
+end
+
+
+-------------------------------------------------------------------------------
+function Osk:Draw(x, y, s)
+  s = s or screen
+  x = math.min(x or 392, 392)
+  y = math.min(y or 232, 232)
+  s:fillRect(x, y, 80, 40, self.BgColor)
+  if self.Char then
+    s:fillRect(x+self.InX*8, y+self.InY*8, 8, 8, self.SelColor)
+  end
+  for i=0, 4 do
+    s:print(x, y+i*8,
+      self.Palette[self.KeyType][self.Shift][i], self.FgColor)
+  end
+end
+
+
+-------------------------------------------------------------------------------
+function Osk:Update()
+  local ret = nil
+
+  if Pad.tSl then
+    Osk.KeyType = Osk.KeyType + 1
+    if Osk.KeyType > table.getn(self.Palette) then
+      Osk.KeyType = 1
+    end
+  end
+
+  if Pad.tL1 then self.NoTouch = true end
+  if Pad.tR1 then
+    if Pad.L1 then
+      self.NoTouch = false
+      return "\n"
+    end
+  end
+
+  local lh = Pad:GetLh()
+  local lv = Pad:GetLv()
+  local rh = Pad:GetRh()
+  local rv = Pad:GetRv()
+  local TrigR = (rv ~= 0) or (rh ~= 0)
+  local Limit = function(v, l, u)
+    return math.min(math.max(v, l), u)
+  end
+
+  self.Shift = Pad.L1
+  if Pad.PressedLR then
+    self.NoTouch = false
+    if not self.Selecting then
+      self.Selecting = true
+      if TrigR then
+        self.InX = 7 + rh
+        self.InY = 2 + rv
+      else
+        self.InX = 2 + lh
+        self.InY = 2 + lv
+      end
+    else
+      self.InX = Limit(self.InX + rh + lh, 0, 9)
+      self.InY = Limit(self.InY + rv + lv, 0, 4)
+    end
+    self.Char = string.sub(
+      self.Palette[self.KeyType][self.Shift][self.InY],
+      self.InX + 1, self.InX + 1 )
+  else
+    if self.Selecting then
+      ret = self.Char
+      self.Char = nil
+      self.Selecting = false
+    elseif Pad.rL1 and self.NoTouch then
+      ret = "\b"
+    end
+  end
+
+  return ret, Pad.R1
+end
+
+-------------------------------------------------------------------------------
+function Osk.help()
+end

@@ -1,0 +1,43 @@
+module 'osk/TwinTail.lc' not found:
+    no field package.preload['osk/TwinTail.lc']
+    no file 'osk/TwinTail.lc'
+    no file 'osk/TwinTail.lc.lua'
+    no file 'osk/TwinTail.lc.lc'
+    no file './osk/TwinTail.lc'
+    no file './osk/TwinTail.lc.lua'
+    no file './osk/TwinTail.lc.lc'
+Check stderr.txt to see what might have gone wrong in loading or running the lua file.
+
+--Loading Errors--
+loadfile(): cannot open osk/TwinTail.lc.lua: No such file or directory
+loadfile(): cannot open osk/TwinTail.lc.lc: No such file or directory
+loadfile(): cannot open ./osk/TwinTail.lc.lua: No such file or directory
+loadfile(): cannot open ./osk/TwinTail.lc.lc: No such file or directory
+
+--Runtime Errors--
+pcall(): osk/TwinTail.lc:9: module 'pad.lc' not found:
+	no field package.preload['pad.lc']
+	no file './pad/lc.lua'
+	no file '/usr/local/share/lua/5.1/pad/lc.lua'
+	no file '/usr/local/share/lua/5.1/pad/lc/init.lua'
+	no file '/usr/local/lib/lua/5.1/pad/lc.lua'
+	no file '/usr/local/lib/lua/5.1/pad/lc/init.lua'
+	no file './pad/lc.so'
+	no file '/usr/local/lib/lua/5.1/pad/lc.so'
+	no file '/usr/local/lib/lua/5.1/loadall.so'
+	no file './pad.so'
+	no file '/usr/local/lib/lua/5.1/pad.so'
+	no file '/usr/local/lib/lua/5.1/loadall.so'
+pcall(): ./osk/TwinTail.lc:9: module 'pad.lc' not found:
+	no field package.preload['pad.lc']
+	no file './pad/lc.lua'
+	no file '/usr/local/share/lua/5.1/pad/lc.lua'
+	no file '/usr/local/share/lua/5.1/pad/lc/init.lua'
+	no file '/usr/local/lib/lua/5.1/pad/lc.lua'
+	no file '/usr/local/lib/lua/5.1/pad/lc/init.lua'
+	no file './pad/lc.so'
+	no file '/usr/local/lib/lua/5.1/pad/lc.so'
+	no file '/usr/local/lib/lua/5.1/loadall.so'
+	no file './pad.so'
+	no file '/usr/local/lib/lua/5.1/pad.so'
+	no file '/usr/local/lib/lua/5.1/loadall.so'

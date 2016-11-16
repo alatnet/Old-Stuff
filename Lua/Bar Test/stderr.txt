@@ -1,0 +1,19 @@
+module './BAR.lc' not found:
+    no field package.preload['./BAR.lc']
+    no file './BAR.lc'
+    no file './BAR.lc.lua'
+    no file './BAR.lc.lc'
+    no file '././BAR.lc'
+    no file '././BAR.lc.lua'
+    no file '././BAR.lc.lc'
+Check stderr.txt to see what might have gone wrong in loading the lua file.
+
+--Loading Errors--
+loadfile(): ./BAR.lc:6: `}' expected (to close `{' at line 1) near `find_percent_from_num'
+loadfile(): cannot read ./BAR.lc.lua: No such file or directory
+loadfile(): cannot read ./BAR.lc.lc: No such file or directory
+loadfile(): ././BAR.lc:6: `}' expected (to close `{' at line 1) near `find_percent_from_num'
+loadfile(): cannot read ././BAR.lc.lua: No such file or directory
+loadfile(): cannot read ././BAR.lc.lc: No such file or directory
+
+--Runtime Errors--

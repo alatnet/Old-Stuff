@@ -1,0 +1,23 @@
+Gum.lookAt(pos.x,pos.y,pos.z,target.x,target.y,target.z,0.0,1.0,0.0)
+Image.createEmpty(width, height)
+
+-- setup texture
+Gu.enable(Gu.BLEND)
+Gu.blendFunc(Gu.ADD, Gu.SRC_ALPHA, Gu.ONE_MINUS_SRC_ALPHA, 0, 0)
+Gu.enable(Gu.TEXTURE_2D);
+Gu.texImage(IMAGE)--IMAGE!!!--
+Gu.texFunc(Gu.TFX_MODULATE, Gu.TCC_RGBA)
+Gu.texEnvColor(COLOR)--COLOR!!!--
+Gu.texFilter(Gu.LINEAR, Gu.LINEAR)
+Gu.texScale(1, 1)
+Gu.texOffset(0, 0)
+Gu.ambientColor(white)--???--
+
+-- setup matrix for cube
+Gum.matrixMode(Gu.MODEL)
+Gum.loadIdentity()
+Gum.translate(0, 0, -3.5);
+Gum.rotateXYZ(Rot.x, Rot.y, Rot.z)
+
+-- draw cube
+Gum.drawArray(Gu.TRIANGLES, Gu.TEXTURE_32BITF+Gu.COLOR_8888+Gu.VERTEX_32BITF+Gu.TRANSFORM_3D, cube)

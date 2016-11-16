@@ -1,0 +1,19 @@
+module 'System/Particle.lc' not found:
+    no field package.preload['System/Particle.lc']
+    no file 'System/Particle.lc'
+    no file 'System/Particle.lc.lua'
+    no file 'System/Particle.lc.lc'
+    no file './System/Particle.lc'
+    no file './System/Particle.lc.lua'
+    no file './System/Particle.lc.lc'
+Check stderr.txt to see what might have gone wrong in loading or running the lua file.
+
+--Loading Errors--
+loadfile(): cannot open System/Particle.lc: No such file or directory
+loadfile(): cannot open System/Particle.lc.lua: No such file or directory
+loadfile(): cannot open System/Particle.lc.lc: No such file or directory
+loadfile(): cannot open ./System/Particle.lc: No such file or directory
+loadfile(): cannot open ./System/Particle.lc.lua: No such file or directory
+loadfile(): cannot open ./System/Particle.lc.lc: No such file or directory
+
+--Runtime Errors--

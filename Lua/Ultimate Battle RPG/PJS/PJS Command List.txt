@@ -1,0 +1,27 @@
+When connecting to PJS:
+-Returns: 
+ -If connected: CONNECTION_OK
+ -If server is full: SERVERFULL
+
+USER name md5id
+-Returns: INFO_RECIEVED
+
+LISTGAMES
+-Returns list of games.
+
+NEWGAME port name
+-Returns: GAME_CREATED
+
+DELETEGAME
+-Returns: nothing
+
+CONNECTGAME md5id
+-Returns:
+ -If connected: GAME_CONNECTED
+ -If cannot connect: GAME_CON_ERROR
+
+DISCONNECTGAME
+-Returns: nothing
+
+LEAVE
+-Returns: nothing

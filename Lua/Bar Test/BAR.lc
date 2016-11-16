@@ -1,0 +1,90 @@
+--[[
+BAR Class\Library  Ver. 1.0
+Created By: alatnet
+Dev Team X Productions
+]]--
+
+BAR = {
+  find_num_from_percent = function (max_num, percentage)
+    return (percentage * max_num)/100
+  end,
+  find_percent_from_num = function (max_num, num)
+    return (num * 100)/max_num
+  end
+}
+
+function BAR.new(val,max_val,width,height,col)
+  val = val or 0
+  mav_val = max_val or 100
+  width = width or 100
+  height = height or 10
+  col = col or Color.new(190,190,190)  --Grey
+
+  local c = setmetatable(
+    {
+      W = width,
+      H = height,
+      C = col,
+      V = val,
+      MV = max_val
+    },
+    {
+      __index = BAR
+    }
+  )
+  
+  return c
+end
+
+function BAR:setHeight(val)
+  self.H = val
+end
+
+function BAR:setWidth(val)
+  self.W = val
+end
+
+function BAR:setMaxVal(val)
+  self.MV = val
+end
+
+function BAR:setVal(val)
+  if val < 0 then val = 0 end
+  if val > self.MV then val = self.MV end
+  self.V = val
+end
+
+function BAR:setPercentage(val)
+  if val < 0 then val = 0 end
+  if val > 100 then val = 100 end
+  self.V = BAR.find_num_from_percent(self.MV,val)
+end
+
+function BAR:getHeight()
+  return self.H
+end
+
+function BAR:getWidth()
+  return self.W
+end
+
+function BAR:getMaxVal()
+  return self.MV
+end
+
+function BAR:getVal()
+  return self.V
+end
+
+function BAR:getPercentage()
+  return BAR.find_percent_from_num(self.MV,self.V)
+end
+
+function BAR:Draw(x,y,s)
+  s = s or screen
+  x = x or 0
+  y = y or 0
+
+  --s:fillRect(x, y, w, h, c)
+  s:fillRect(x, y, BAR.find_num_from_percent(self.W,BAR.find_percent_from_num(self.MV,self.V)), self.H, self.C)
+end

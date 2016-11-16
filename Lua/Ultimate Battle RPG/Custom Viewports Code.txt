@@ -1,0 +1,29 @@
+Gu.enable(Gu.SCISSOR_TEST)
+............
+-- creates a viewport top left of the screen...
+Gu.viewport(2048 - (SCREEN_WIDTH / 4), 2048 - (SCREEN_HEIGHT / 4), 240, 136)
+Gu.scissor(0, 0, 240, 136)
+
+Gum.matrixMode(Gu.PROJECTION)
+Gum.loadIdentity()
+............
+-- creates a viewport top right of the screen...
+Gu.viewport(2048 + (SCREEN_WIDTH / 4), 2048 - (SCREEN_HEIGHT / 4), 240, 136)
+Gu.scissor(240, 0, 480, 136)
+
+Gum.matrixMode(Gu.PROJECTION)
+Gum.loadIdentity()
+............
+-- creates a viewport bottom left of the screen...
+Gu.viewport(2048 - (SCREEN_WIDTH / 4), 2048 + (SCREEN_HEIGHT / 4), 240, 136)
+Gu.scissor(0, 136 , 240, 272)
+
+Gum.matrixMode(Gu.PROJECTION)
+Gum.loadIdentity()
+............
+-- creates a viewport bottom right of the screen...
+Gu.viewport(2048 + (SCREEN_WIDTH / 4), 2048 + (SCREEN_HEIGHT / 4), 240, 136)
+Gu.scissor(240, 136, 480, 272)
+
+Gum.matrixMode(Gu.PROJECTION)
+Gum.loadIdentity()

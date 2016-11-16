@@ -1,0 +1,19 @@
+module 'JavaSrv.lc' not found:
+    no field package.preload['JavaSrv.lc']
+    no file 'JavaSrv.lc'
+    no file 'JavaSrv.lc.lua'
+    no file 'JavaSrv.lc.lc'
+    no file './JavaSrv.lc'
+    no file './JavaSrv.lc.lua'
+    no file './JavaSrv.lc.lc'
+Check stderr.txt to see what might have gone wrong in loading or running the lua file.
+
+--Loading Errors--
+loadfile(): JavaSrv.lc:34: 'then' expected near '!'
+loadfile(): cannot open JavaSrv.lc.lua: No such file or directory
+loadfile(): cannot open JavaSrv.lc.lc: No such file or directory
+loadfile(): ./JavaSrv.lc:34: 'then' expected near '!'
+loadfile(): cannot open ./JavaSrv.lc.lua: No such file or directory
+loadfile(): cannot open ./JavaSrv.lc.lc: No such file or directory
+
+--Runtime Errors--

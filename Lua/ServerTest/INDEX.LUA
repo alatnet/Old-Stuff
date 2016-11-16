@@ -1,0 +1,1 @@
+dofile("INDEX1.LUA")

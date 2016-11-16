@@ -1,0 +1,3 @@
+NET.servers.sel = {
+  {name="",IP="",port=0,num_ppl=0,max_ppl=0,num_games=0},
+}
